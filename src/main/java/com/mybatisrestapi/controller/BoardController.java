@@ -18,11 +18,18 @@ public class BoardController {
     private final BoardService boardService;
 
 
-    @ApiOperation(value = "게시판 조회", notes = "게시판을 조회합니다.")
+    @ApiOperation(value = "게시판 전체 조회", notes = "게시판을 전체 조회합니다.")
     @GetMapping("/list")
     public List<BoardDto> getBoard(){
 
         return boardService.getBoardList();
+    }
+
+    @ApiOperation(value = "특정 게시판 조회", notes = "특정 게시판을 조회합니다.")
+    @GetMapping("/choicelist")
+    public BoardDto getBoardChoice(int param){
+
+        return boardService.getBoard(param);
     }
 
     @ApiOperation(value = "게시판 생성", notes = "게시판을 생성합니다.")

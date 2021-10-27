@@ -11,4 +11,7 @@ public interface BoardService {
     List<BoardDto> getBoardList();
 
     int newBoard(BoardDto boardDto);
+
+    BoardDto getBoard(int param);
+
 }

@@ -7,9 +7,16 @@
 
 
     <select id="getBoardList" resultType="com.mybatisrestapi.dto.BoardDto">
-        select id, title, content, author, del_yn
+        select id, title, content, author, delyn
         from board
-        where del_yn = 'N'
+        where delyn = 'N'
+    </select>
+
+    <select id="getBoard" resultType="com.mybatisrestapi.dto.BoardDto">
+
+        select id, title, content, author, delyn
+        from board
+        where id = #{param} and delyn = 'N'
     </select>
 
 
@@ -20,7 +27,6 @@
 
         insert into board(title, content, author)
         values (#{title}, #{content}, #{author})
-
 
     </insert>
 

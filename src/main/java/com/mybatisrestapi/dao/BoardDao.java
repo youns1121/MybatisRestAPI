@@ -10,6 +10,8 @@ public interface BoardDao {
 
     List<BoardDto> getBoardList();
 
-    int newBoard(BoardDto boardDto); // 키를 반환하기 위해 int
+    int newBoard(BoardDto boardDto);
+
+    BoardDto getBoard(int param);
 
 }

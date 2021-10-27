@@ -24,5 +24,10 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.newBoard(boardDto);
     }
 
+    @Override
+    public BoardDto getBoard(int param) {
+        return boardDao.getBoard(param);
+    }
+
 
 }
