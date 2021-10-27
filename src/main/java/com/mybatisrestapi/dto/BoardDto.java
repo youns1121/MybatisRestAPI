@@ -17,7 +17,7 @@ public class BoardDto {
     @ApiModelProperty(value = "게시판 작성자")
     private String author;
     @ApiModelProperty(value = "게시판 삭제여부", hidden = true)
-    private String del_yn = "N";
+    private String delYn = "N";
 
 
 
@@ -25,12 +25,12 @@ public class BoardDto {
     }
 
     @Builder
-    public BoardDto(Long id, String title, String content, String author, String del_yn) {
+    public BoardDto(Long id, String title, String content, String author, String delYn) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
-        this.del_yn = del_yn;
+        this.delYn = delYn;
     }
 
 
