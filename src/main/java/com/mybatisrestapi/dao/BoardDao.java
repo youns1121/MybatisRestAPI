@@ -1,17 +1,22 @@
 package com.mybatisrestapi.dao;
 
 import com.mybatisrestapi.dto.BoardDto;
+import lombok.Getter;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
+
 public interface BoardDao {
 
-    List<BoardDto> getBoardList();
+    List<BoardDto> getBoardList(); //전체 출력
 
-    int newBoard(BoardDto boardDto);
+    Long newBoard(BoardDto boardDto); //생성
 
-    BoardDto getBoard(int param);
+    BoardDto getBoard(Long boardDto); // 특정 출력
+    Long editBoard(BoardDto boardDto); // 수정
+
+    void delBoard(Long boardDto); //삭제, delYn = 'Y';
 
 }
