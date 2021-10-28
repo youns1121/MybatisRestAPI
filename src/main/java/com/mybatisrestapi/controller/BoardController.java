@@ -26,17 +26,36 @@ public class BoardController {
     }
 
     @ApiOperation(value = "특정 게시판 조회", notes = "특정 게시판을 조회합니다.")
-    @GetMapping("/choicelist")
-    public BoardDto getBoardChoice(int param){
+    @GetMapping(value = "/{param}")
+    public BoardDto getBoardChoice(@PathVariable("param") Long param){
 
         return boardService.getBoard(param);
     }
 
     @ApiOperation(value = "게시판 생성", notes = "게시판을 생성합니다.")
-    @PostMapping("/create")
-    public Integer createBoard(@RequestBody BoardDto boardDto){
+    @PostMapping
+    public Long createBoard(@RequestBody BoardDto boardDto){
 
         return boardService.newBoard(boardDto);
     }
+
+    @ApiOperation(value = "게시판 수정", notes = "특정 게시판을 수정합니다.")
+    @PostMapping("/{id}")
+    public Long updateBoard(@PathVariable("id") Long id, @RequestBody BoardDto boardDto){
+
+        boardDto.setId(id);
+
+       return boardService.editBoard(boardDto);
+    }
+
+    @ApiOperation(value = "게시판 삭제", notes = "특정 게시판을 삭제합니다.")
+    @PostMapping("/del/{id}")
+    public void delBoard(@PathVariable("id") Long id){
+
+
+         boardService.delBoard(id);
+    }
+
+
 
 }
