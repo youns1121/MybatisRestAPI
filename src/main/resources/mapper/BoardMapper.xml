@@ -6,28 +6,43 @@
 
 
 
-    <select id="getBoardList" resultType="com.mybatisrestapi.dto.BoardDto">
-        select id, title, content, author, delyn
+    <select id="getBoardList" resultType="BoardDto">
+        select id, title, contents, author, delyn
         from board
         where delyn = 'N'
     </select>
 
-    <select id="getBoard" resultType="com.mybatisrestapi.dto.BoardDto">
+    <select id="getBoard" resultType="BoardDto">
 
-        select id, title, content, author, delyn
+        select id, title, contents, author, delyn
         from board
         where id = #{param} and delyn = 'N'
     </select>
 
 
     <insert id="newBoard"
-            parameterType="com.mybatisrestapi.dto.BoardDto"
+            parameterType="BoardDto"
             useGeneratedKeys ="true"
             keyProperty="id">
 
-        insert into board(title, content, author)
-        values (#{title}, #{content}, #{author})
+        insert into board(title, contents, author)
+        values (#{title}, #{contents}, #{author})
 
     </insert>
+
+    <update id="editBoard" parameterType="BoardDto">
+        update board
+        set title = #{title},
+            contents = #{contents},
+            author = #{author}
+        where id = #{id} and delyn = 'N'
+    </update>
+
+    <update id="delBoard" parameterType="BoardDto">
+        update board
+        set delyn = 'Y'
+        where id = #{id}
+    </update>
+
 
 </mapper>
