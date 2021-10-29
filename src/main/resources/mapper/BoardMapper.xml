@@ -6,12 +6,14 @@
 
 
 
+    <!--- 게시판 전체보기  -->
     <select id="getBoardList" resultType="BoardDto">
         select id, title, contents, author, delyn
         from board
         where delyn = 'N'
     </select>
 
+    <!--- 게시판 상세보기  -->
     <select id="getBoard" resultType="BoardDto">
 
         select id, title, contents, author, delyn
@@ -20,6 +22,7 @@
     </select>
 
 
+    <!--- 생성하기  -->
     <insert id="newBoard"
             parameterType="BoardDto"
             useGeneratedKeys ="true"
@@ -30,6 +33,7 @@
 
     </insert>
 
+    <!--- 수정하기  -->
     <update id="editBoard" parameterType="BoardDto">
         update board
         set title = #{title},
@@ -38,6 +42,7 @@
         where id = #{id} and delyn = 'N'
     </update>
 
+    <!--- 삭제하기 : 삭제여부 = 'Y' 변경  -->
     <update id="delBoard" parameterType="BoardDto">
         update board
         set delyn = 'Y'
