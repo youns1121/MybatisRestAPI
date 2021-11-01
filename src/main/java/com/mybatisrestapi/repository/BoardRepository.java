@@ -1,15 +1,13 @@
-package com.mybatisrestapi.dao;
+package com.mybatisrestapi.repository;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.mybatisrestapi.dto.BoardDto;
-import lombok.Getter;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
-public interface BoardDao {
+public interface BoardRepository {
 
     List<BoardDto> getBoardList(); //전체 출력
 

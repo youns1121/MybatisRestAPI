@@ -1,9 +1,8 @@
 package com.mybatisrestapi.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.mybatisrestapi.dao.BoardDao;
+import com.mybatisrestapi.repository.BoardRepository;
 import com.mybatisrestapi.dto.BoardDto;
 import com.mybatisrestapi.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -16,24 +15,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 
-    private final BoardDao boardDao;
+    private final BoardRepository boardRepository;
 
     @Override
     @Transactional
     public List<BoardDto> getBoardList() {
-        return boardDao.getBoardList();
+        return boardRepository.getBoardList();
     }
 
     @Override
     @Transactional
     public Long newBoard(BoardDto boardDto) {
-        return boardDao.newBoard(boardDto);
+        return boardRepository.newBoard(boardDto);
     }
 
     @Override
     @Transactional
     public BoardDto getBoard(Long param) { // 특정 게시판 조회
-        return boardDao.getBoard(param);
+        return boardRepository.getBoard(param);
     }
 
     @Override
@@ -41,21 +40,21 @@ public class BoardServiceImpl implements BoardService {
     public Long editBoard(BoardDto boardDto) { // 수정
         boardDto.setId(boardDto.getId());
 
-        return boardDao.editBoard(boardDto);
+        return boardRepository.editBoard(boardDto);
 
     }
 
     @Override
     @Transactional
     public void delBoard(Long id) {
-        boardDao.delBoard(id);
+        boardRepository.delBoard(id);
     }
 
     @Override
     public PageInfo<BoardDto> findAll(int pageNo, int pageSize) {
 
         PageHelper.startPage(pageNo, pageSize);
-        List<BoardDto> boardDtoList = boardDao.getBoardList();
+        List<BoardDto> boardDtoList = boardRepository.getBoardList();
         PageInfo<BoardDto> pageInfo = new PageInfo<>(boardDtoList);
         return pageInfo;
     }
