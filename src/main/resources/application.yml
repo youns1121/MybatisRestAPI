@@ -13,14 +13,22 @@ spring:
   #      prefix: /WEB-INF/views/
   #      suffix: .jsp
 
+#zeroDateTimeBehavior=convertToNull : Zero date value prohibited 문제 해결
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mybatis?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3307/mybatis?zeroDateTimeBehavior=convertToNull
+
     username: min
     password: wjdqhqhdks
 
 mybatis:
   mapper-locations: classpath:mapper/**.xml
+  type-aliases-package: com.mybatisrestapi.dto
+
+
+
+
+
 
   jackson:
     serialization:
