@@ -7,14 +7,14 @@
 
     <!-- 게시판 페이징 보기 -->
     <select id="findAll" resultType="BoardDto">
-        select id, title, contents, author, delyn
+        select id, title, contents, author, delyn, createTime, updatetime
         from board
         where delyn = 'N'
     </select>
 
     <!--- 게시판 전체보기  -->
     <select id="getBoardList" resultType="BoardDto">
-        select id, title, contents, author, delyn
+        select id, title, contents, author, delyn, createtime, updatetime
         from board
         where delyn = 'N'
     </select>
@@ -22,7 +22,7 @@
     <!--- 게시판 상세보기  -->
     <select id="getBoard" resultType="BoardDto">
 
-        select id, title, contents, author, delyn
+        select id, title, contents, author, delyn, createtime, updatetime
         from board
         where id = #{param} and delyn = 'N'
     </select>
