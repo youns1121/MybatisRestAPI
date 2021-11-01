@@ -5,6 +5,12 @@
 <mapper namespace="com.mybatisrestapi.dao.BoardDao">
 
 
+    <!-- 게시판 페이징 보기 -->
+    <select id="findAll" resultType="BoardDto">
+        select id, title, contents, author, delyn
+        from board
+        where delyn = 'N'
+    </select>
 
     <!--- 게시판 전체보기  -->
     <select id="getBoardList" resultType="BoardDto">
@@ -28,8 +34,8 @@
             useGeneratedKeys ="true"
             keyProperty="id">
 
-        insert into board(title, contents, author)
-        values (#{title}, #{contents}, #{author})
+        insert into board(title, contents, author, createtime, updatetime)
+        values (#{title}, #{contents}, #{author}, #{createTime}, #{updateTime})
 
     </insert>
 
@@ -48,6 +54,8 @@
         set delyn = 'Y'
         where id = #{id}
     </update>
+
+
 
 
 </mapper>

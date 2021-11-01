@@ -1,5 +1,8 @@
 package com.mybatisrestapi.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mybatisrestapi.dao.BoardDao;
 import com.mybatisrestapi.dto.BoardDto;
 import com.mybatisrestapi.service.BoardService;
@@ -46,6 +49,15 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public void delBoard(Long id) {
         boardDao.delBoard(id);
+    }
+
+    @Override
+    public PageInfo<BoardDto> findAll(int pageNo, int pageSize) {
+
+        PageHelper.startPage(pageNo, pageSize);
+        List<BoardDto> boardDtoList = boardDao.getBoardList();
+        PageInfo<BoardDto> pageInfo = new PageInfo<>(boardDtoList);
+        return pageInfo;
     }
 
 

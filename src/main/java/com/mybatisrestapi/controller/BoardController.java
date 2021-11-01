@@ -1,5 +1,7 @@
 package com.mybatisrestapi.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mybatisrestapi.dto.BoardDto;
 import com.mybatisrestapi.service.BoardService;
 import io.swagger.annotations.Api;
@@ -7,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Api(value = "Board API", tags = "Board API")
@@ -16,6 +19,14 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+
+    @ApiOperation(value = "게시판 페이징 조회", notes = "게시판 페이징 조회합니다.")
+    @GetMapping("/page")
+    public PageInfo<BoardDto> findPage(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo, @RequestParam(value = "pageSize", defaultValue = "10")
+                                       int pageSize){
+        PageInfo<BoardDto> page = boardService.findAll(pageNo, pageSize);
+        return page;
+    }
 
 
     @ApiOperation(value = "게시판 전체 조회", notes = "게시판을 전체 조회합니다.")
