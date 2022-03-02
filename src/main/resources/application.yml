@@ -1,38 +1,25 @@
 server:
   port: 8080
   servlet:
-
     encoding:
       charset: UTF-8
       enabled: true
       force: true
 
-spring:
-  #  mvc:
-  #    view:
-  #      prefix: /WEB-INF/views/
-  #      suffix: .jsp
 
-#zeroDateTimeBehavior=convertToNull : Zero date value prohibited 문제 해결
+spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/mybatis?zeroDateTimeBehavior=convertToNull
-
+    url: jdbc:mysql://localhost:3307/mybatis?serverTimezone=UTC
     username: min
     password: wjdqhqhdks
 
 mybatis:
   mapper-locations: classpath:mapper/**.xml
-  type-aliases-package: com.mybatisrestapi.dto
+  type-aliases:package: com.mybatisrestapi.vo
 
 
+logging:
+  config: classpath:log4j2.xml
 
 
-
-
-  jackson:
-    serialization:
-      fail-on-empty-beans: false
-
-logging.level:
-  org.hibernate.SQL: debug
