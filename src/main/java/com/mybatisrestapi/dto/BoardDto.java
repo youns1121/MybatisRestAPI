@@ -1,56 +1,47 @@
 package com.mybatisrestapi.dto;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 import java.time.LocalDateTime;
 
+@Alias("BoardDto")
 @Getter
-@AllArgsConstructor
+@Setter
 public class BoardDto {
 
-    @ApiModelProperty(value = "게시판 아이디", hidden = true)
     private Long id;
-    @ApiModelProperty(value = "게시판 제목")
+
     private String title;
-    @ApiModelProperty(value = "게시판 내용")
+
     private String contents;
-    @ApiModelProperty(value = "게시판 작성자")
-    private String author;
 
-    @ApiModelProperty(value = "생성시간")
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "수정시간")
     private LocalDateTime updateTime;
 
-
-    @ApiModelProperty(value = "게시판 삭제여부", hidden = true)
     private String delYn;
 
-    public void setId(Long id) {
-        this.id = id;
+    private Integer viewCount;
+
+    private Integer likeCount;
+
+
+    @Builder
+    public BoardDto(String title, String contents, LocalDateTime createTime, LocalDateTime updateTime, String delYn, Integer viewCount, Integer likeCount) {
+        this.title = title;
+        this.contents = contents;
+        this.createTime = createTime.now();
+        this.updateTime = updateTime.now();
+        this.delYn = delYn;
+        this.viewCount = viewCount;
+        this.likeCount = likeCount;
     }
-
-
 
     public BoardDto() {
     }
-
-    @Builder
-    public void createBoard(BoardDto boardDto){
-        this.title = boardDto.getTitle();
-        this.contents = boardDto.getContents();
-        this.author = boardDto.getAuthor();
-    }
-
-
 
 }
