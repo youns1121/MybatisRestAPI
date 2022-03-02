@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<form  th:object="${successBoard}" method="post">
+    <tr>
+      <td>
+        <label for="exampleFormControlInput1" class="form-label" >제목</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" name="title" >
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="contents"  rows="3"></textarea>
+      </td>
+    </tr>
+    <button type="submit" class="btn btn-primary btn-sm"  th:onclick="|location.href='@{/board/list}'|">작성</button>
+    <button type="button" class="btn btn-secondary btn-sm" th:onclick="|location.href='@{/board/list}'|">취소</button>
+</form>
+
+
+
+</body>
+
+
+</html>
