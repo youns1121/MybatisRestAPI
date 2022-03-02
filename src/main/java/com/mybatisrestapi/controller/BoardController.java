@@ -1,71 +1,64 @@
 package com.mybatisrestapi.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+
 import com.mybatisrestapi.dto.BoardDto;
+import com.mybatisrestapi.vo.BoardVo;
 import com.mybatisrestapi.service.BoardService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Api(value = "Board API", tags = "Board API")
-@RestController
+@Controller
 @RequiredArgsConstructor
-@RequestMapping("/v2/api/board")
+@RequestMapping("/board")
 public class BoardController {
 
     private final BoardService boardService;
 
-    @ApiOperation(value = "게시판 페이징 조회", notes = "게시판 페이징 조회합니다.")
-    @GetMapping("/page")
-    public PageInfo<BoardDto> findPage(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo, @RequestParam(value = "pageSize", defaultValue = "10")
-                                       int pageSize){
-        PageInfo<BoardDto> page = boardService.findAll(pageNo, pageSize);
-        return page;
+
+    @GetMapping("/newBoard")
+    public String formBoard(Model model){
+
+        model.addAttribute("BoardDto", new BoardDto());
+
+        return "html/board";
     }
 
+    @PostMapping("/newBoard")
+    public String createBoard(BoardVo boardVo, Model model){
 
-    @ApiOperation(value = "게시판 전체 조회", notes = "게시판을 전체 조회합니다.")
+        Long successBoard = boardService.createBoard(boardVo);
+
+        model.addAttribute("successBoard", successBoard);
+
+        return "html/board";
+    }
+
+//    @PostMapping("/newBoard")
+//    public String newBoard(BoardVo boardVo, Model model){
+//
+//        Long success = boardService.newBoard(boardVo);
+//
+//        model.addAttribute("success", success);
+//
+//        return "html/board";
+//    }
+
     @GetMapping("/list")
-    public List<BoardDto> getBoard(){
+    public String boardAllList(Model model){
 
-        return boardService.getBoardList();
+        List<BoardDto> boardList = boardService.findAllByBoard();
+
+        model.addAttribute("boardList", boardList);
+
+        return "html/boardList";
     }
 
-    @ApiOperation(value = "특정 게시판 조회", notes = "특정 게시판을 조회합니다.")
-    @GetMapping(value = "/{param}")
-    public BoardDto getBoardChoice(@PathVariable("param") Long param){
 
-        return boardService.getBoard(param);
-    }
-
-    @ApiOperation(value = "게시판 생성", notes = "게시판을 생성합니다.")
-    @PostMapping
-    public Long createBoard(@RequestBody BoardDto boardDto){
-
-        return boardService.newBoard(boardDto);
-    }
-
-    @ApiOperation(value = "게시판 수정", notes = "특정 게시판을 수정합니다.")
-    @PostMapping("/{id}")
-    public Long updateBoard(@PathVariable("id") Long id, @RequestBody BoardDto boardDto){
-
-        boardDto.setId(id);
-
-       return boardService.editBoard(boardDto);
-    }
-
-    @ApiOperation(value = "게시판 삭제", notes = "특정 게시판을 삭제합니다.")
-    @PostMapping("/del/{id}")
-    public void delBoard(@PathVariable("id") Long id){
-
-
-         boardService.delBoard(id);
-    }
 
 
 
